@@ -1,34 +1,44 @@
 # edu-tensorflow-yonsei
 
-연세대학교 수업용 TensorFlow 이미지. `edu-dl-tensorflow` 표준 이미지에 양자화 인식 학습(QAT)과 이미지 처리 패키지를 추가합니다.
+연세대 CNN 전이학습·QAT 실습 수업 맞춤 이미지. `edu-dl-tensorflow` 베이스에 수업에 필요한 추가 패키지와 설정을 얹은 커스텀 이미지입니다.
 
 ## 구성
 
 | 항목 | 내용 |
 |---|---|
-| 기반 | `edu-dl-tensorflow` |
-| 추가 패키지 | tensorflow-model-optimization, opencv-python-headless |
+| 기반 | `edu-dl-tensorflow` (TensorFlow 2.17 포함) |
+| 추가 패키지 | 수업 커리큘럼에 맞춘 패키지 (자세한 내용은 Dockerfile 참고) |
 | 작업 디렉터리 | `/workspace` |
 | 포트 | 8888 |
 
-```
-ghcr.io/<owner>/edu-tensorflow-yonsei:1.0
-```
+## 사용
 
-## 실행
+gcube 워크로드 배포 시 아래 설정으로 사용합니다.
 
-컨테이너 시작 시 JupyterLab이 자동 실행되며, `/workspace`를 작업 디렉터리로 사용합니다.
+| 항목 | 값 |
+|---|---|
+| 이미지 | `chaeyoon08/edu-tensorflow-yonsei:1.0` |
+| 포트 | 8888 |
+| GPU | VRAM 8GB 이상 |
+
+배포 후 서비스 URL로 접속하면 JupyterLab이 열립니다.
+
+이미지는 GitHub Container Registry에서도 받을 수 있습니다.
+
+```
+ghcr.io/data-alliance/edu-tensorflow-yonsei:1.0
+chaeyoon08/edu-tensorflow-yonsei:1.0
+```
 
 ## 환경변수
 
+모든 환경변수는 선택 사항입니다. 비공개 저장소를 사용하거나 커밋 작성자를 지정하려는 경우에만 입력합니다.
+
 | 변수 | 기본값 | 설명 |
 |---|---|---|
-| `JUPYTER_TOKEN` | (없음) | 접속 토큰. 미지정 시 토큰 없이 접속 가능 |
-
-git 구성 및 작업 저장소 자동 clone 관련 환경변수는 베이스 이미지에서 상속됩니다.
-
-## 빌드
-
-GitHub Actions의 수동 실행(workflow_dispatch)으로 빌드하며, 템플릿·베이스 이미지·태그를 선택할 수 있습니다. ghcr.io와 Docker Hub에 동시 푸시됩니다.
-
-베이스 이미지(`edu-dl-tensorflow`)가 먼저 빌드되어 있어야 합니다.
+| `JUPYTER_TOKEN` | (없음) | JupyterLab 접속 토큰. 미지정 시 토큰 없이 접속 |
+| `GIT_CLONE_REPO` | (없음) | 워크로드 시작 시 `/workspace`에 자동 clone할 저장소 URL |
+| `GIT_USER_NAME` | (없음) | git 커밋 작성자 이름 |
+| `GIT_USER_EMAIL` | (없음) | git 커밋 작성자 이메일 |
+| `GIT_TOKEN` | (없음) | git 인증 토큰(PAT). private 저장소 clone/push 시 필요 |
+| `GIT_HOST` | `github.com` | git 호스트. GitLab(`gitlab.com`) 또는 사내 git 서버 주소도 가능 |
