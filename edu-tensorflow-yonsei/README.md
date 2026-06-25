@@ -17,18 +17,16 @@ gcube 워크로드 배포 시 아래 설정으로 사용합니다.
 
 | 항목 | 값 |
 |---|---|
-| 이미지 | `chaeyoon08/edu-tensorflow-yonsei:1.0` |
+| 이미지 (권장) | `public.ecr.aws/g3x5o1w3/gcube/custom/edu-tensorflow-yonsei:1.0` |
+| 이미지 (대안) | `ghcr.io/data-alliance/edu-tensorflow-yonsei:1.0` |
 | 포트 | 8888 |
 | GPU | VRAM 8GB 이상 |
 
 배포 후 서비스 URL로 접속하면 JupyterLab이 열립니다.
 
-이미지는 GitHub Container Registry에서도 받을 수 있습니다.
+AWS ECR이 GitHub Container Registry보다 다운로드 속도가 빠르기 때문에 사용을 권장합니다.
 
-```
-ghcr.io/data-alliance/edu-tensorflow-yonsei:1.0
-chaeyoon08/edu-tensorflow-yonsei:1.0
-```
+> **노트북은 한 번에 하나씩 열어 실행하세요.** 여러 노트북을 동시에 열면 각 노트북의 커널이 메모리를 함께 점유해, 메모리 부족으로 워크로드가 종료될 수 있습니다. 다른 노트북으로 넘어갈 때는 이전 노트북의 커널을 종료(Shut Down Kernel)하면 더 안정적입니다.
 
 ## 환경변수
 
